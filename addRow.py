@@ -1,13 +1,15 @@
 import pandas as pd
 import random as rand
 
-def random():
-    return rand.int(0,1)
+def random(rows):
+    return [rand.randint(0,1) for i in range(rows)]
 
-csv_input = pd.read_csv(column)
+csv_input = pd.read_csv('Assets/Standard-10-20-Cap25.ced')
 
-csv_input['new_column'] = csv_input[random()]
+rows = len(csv_input)
 
-csv_input['new_column_2'] = csv_input[random()]
+csv_input['Sensor'] = random(rows)
 
-csv_input.to_csv(output_csv_file, index=False)
+csv_input['Transducer'] = random(rows)
+
+csv_input.to_csv('Assets/Test.csv', index=False)
