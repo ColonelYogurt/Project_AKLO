@@ -7,7 +7,7 @@ def on_message(client, userdata, message):
     print("message retain flag=",message.retain)
 
 
-broker_address="192.168.1.184" 
+broker_address="192.168.1.184" #From example code
 
 client = mqtt.Client("P1") #create new instance
 
