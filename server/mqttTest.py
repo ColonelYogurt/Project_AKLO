@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt #import the client1
 from random import randint
 import time
 
-broker = 'broker.emqx.io'
+broker = 'mqtt.eclipse.org'
 port = 1883
 topic = "python/mqtt/test"
 # generate client ID with pub prefix randomly
@@ -23,9 +23,7 @@ def connect_mqtt():
     return client
 
 
-<<<<<<< HEAD
 broker_address="localhost" #From example code
-=======
 def publish(client):
     msg_count = 0
     while True:
@@ -39,7 +37,6 @@ def publish(client):
         else:
             print(f"Failed to send message to topic {topic}")
         msg_count += 1
->>>>>>> 40a2bddf87aadf6282b047a6c236c0313ab61cfc
 
 
 def run():
