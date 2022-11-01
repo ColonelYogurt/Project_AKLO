@@ -12,4 +12,4 @@ csv_input['Sensor'] = random(rows)
 
 csv_input['Transducer'] = random(rows)
 
-csv_input.to_csv('Assets/Test.csv', index=False)
+csv_input.to_csv('Test.csv', index=False)
