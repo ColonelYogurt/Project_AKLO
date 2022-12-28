@@ -1,5 +1,5 @@
-Number	labels	theta	radius	X	Y	Z	sph_theta	sph_phi	sph_radius	,Sensor,Transducer
-1	Fp1	-18	0.511	0.95	0.309	-0.0349	 18	 -2	  1	,0,1
+Number,	labels,	theta,	radius,	X,	Y,	Z,	sph_theta,	sph_phi	sph_radius,	Sensor, Transducer
+1,	Fp1,	-18	0.511,	0.95,	0.309,	-0.0349,	 18, -2, 1,	0, 1
 2	Fp2	 18	0.511	0.95	-0.309	-0.0349	-18	 -2	  1	,1,0
 3	F9	-55	0.639	0.52	0.742	-0.423	 55	-25	  1	,0,1
 4	F7	-54	0.511	0.587	0.809	-0.0349	 54	 -2	  1	,0,1
@@ -23,4 +23,4 @@ Number	labels	theta	radius	X	Y	Z	sph_theta	sph_phi	sph_radius	,Sensor,Transducer
 22	P8	126	0.511	-0.587	-0.809	-0.0349	-126	 -2	  1	,1,0
 23	P10	126	0.639	-0.533	-0.733	-0.423	-126	-25	  1	,1,1
 24	O1	-162	0.511	-0.95	0.309	-0.0349	162	 -2	  1	,1,1
-25	O2	162	0.511	-0.95	-0.309	-0.0349	-162	 -2	  1	,0,1
+25, O2	162	0.511	-0.95	-0.309	-0.0349	-162	 -2	  1	,0,1
