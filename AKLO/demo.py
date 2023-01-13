@@ -10,18 +10,24 @@ client_id = f'python-mqtt-{randint(0, 1000)}'
 
 
 
+# Updates file with new information
 def edit_file(new_message, pos):
 
+    #Takes new_messange (in row form) and seperates values
     mess_elem = new_message.split(",")
+
+    # Declares local objects
     in_file = open("Assets/Test.csv", "rb")
     reader = csv.reader(in_file)
     out_file = open("Assets/Test.csv", "wb")
     writer = csv.writer(out_file)
 
+    #Rips file and re-assembles as needed
     for row in reader:
+        #Alters information as needed
         if row[0] == mess_elem[0]:
             row[pos] = mess_elem[1]
-            writer.writerow(row)
+        writer.writerow(row)
 
     in_file.close()    
     out_file.close()
@@ -29,6 +35,7 @@ def edit_file(new_message, pos):
 def on_log(client, userdata, level, buf):
     print("log: " + buf)
 
+#establishes and confirms connection
 def on_connect(client, userdata, flags, rc):
     if rc==0:
         print("Connected to server")
@@ -36,10 +43,11 @@ def on_connect(client, userdata, flags, rc):
     else:
         print("Failed to connect to server")
         
-
+#Executes diconnection protocol
 def on_disconnect(client, userdata, flags, rc=0):
     print("Disconnected "+str(rc))
 
+#Detects and triggers on information to update
 def on_message(client, userdata, message):
     topic = message.topic
 
@@ -56,7 +64,6 @@ def on_message(client, userdata, message):
 def send_new(client, info, topic):
     if topic == "Interaction/sensor/console2":
         client.publish("Interaction/sensor/console2", info)
-        #Writes into csv file will complete on 12/28/2022
 
     elif topic == "Interaction/Transdueser/console2":
         client.publish("Interaction/Transdueser/console2", info)
@@ -76,7 +83,18 @@ print("connecting to broker")
 client.connect(broker_address) #connect to broker
 client.loop_start()    #start the loop
 
-#Requires further definition needs to be discussed
+# Declares local objects
+local_file = open("Assets/Test.csv", "rb")
+temp_reader = csv.reader(local_file)
+
+#Rips file and re-assembles as needed
+sensor_topic = "Interaction/sensor/console2"
+transdeuser_topic = "Interaction/Transdueser/console2"
+for row in temp_reader:
+    send_new(client, row, sensor_topic)
+    send_new(client, row, transdeuser_topic)
+
+local_file.close() 
 
 client.subscribe("data/file")
 client.publish("data/file", "Test.csv")
