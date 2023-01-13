@@ -8,15 +8,20 @@ port = 1883
 topic = "python/mqtt/test"
 client_id = f'python-mqtt-{randint(0, 1000)}'
 
+
+
 def edit_file(new_message, pos):
-    in_file = open("d:/in.csv", "rb")
+
+    mess_elem = new_message.split(",")
+    in_file = open("Assets/Test.csv", "rb")
     reader = csv.reader(in_file)
-    out_file = open("d:/out.csv", "wb")
+    out_file = open("Assets/Test.csv", "wb")
     writer = csv.writer(out_file)
 
     for row in reader:
-        row[3] = 4
-        writer.writerow(row)
+        if row[0] == mess_elem[0]:
+            row[pos] = mess_elem[1]
+            writer.writerow(row)
 
     in_file.close()    
     out_file.close()
@@ -40,11 +45,11 @@ def on_message(client, userdata, message):
 
     if topic == "Interaction/sensor/console2":
         message_new = str(message.payload.decode("utf-8", "ignore"))
-        #Writes into csv file will complete on 12/28/2022
+        edit_file(message_new, 10)
 
     elif topic == "Interaction/Transdueser/console2":
         message_new = str(message.payload.decode("utf-8", "ignore"))
-        #Writes into csv file will complete on 12/28/2022
+        edit_file(message_new, 11)
 
     return(message_new)
 
@@ -75,11 +80,6 @@ client.loop_start()    #start the loop
 
 client.subscribe("data/file")
 client.publish("data/file", "Test.csv")
-
-myfile = open("Assets/Test.csv", 'r')
-Lines = myfile.readlines()
-for line in Lines:
-  client.publish("test/filereading", line[0])
 
 client.loop_stop()
 

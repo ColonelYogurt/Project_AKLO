@@ -14,18 +14,35 @@ def on_log(client, userdata, level, buf):
 def on_connect(client, userdata, flags, rc):
     if rc==0:
         print("Connected to server")
-        client.publish("Connection/confirmation/confirm1", "connect")
+        client.publish("Connection/confirmation/confirm1", "connected")
     else:
         print("Failed to connect to server")
         
 
 def on_disconnect(client, userdata, flags, rc=0):
-    print("DIsconnected "+str(rc))
+    print("Disconnected "+str(rc))
 
 def on_message(client, userdata, message):
     topic = message.topic
-    message_new = str(message.payload.decode("utf-8", "ignore"))
-    print("message: ", message_new)
+
+    if topic == "Interaction/sensor/console2":
+        message_new = str(message.payload.decode("utf-8", "ignore"))
+        #Writes into csv file will complete on 12/28/2022
+
+    elif topic == "Interaction/Transdueser/console2":
+        message_new = str(message.payload.decode("utf-8", "ignore"))
+        #Writes into csv file will complete on 12/28/2022
+
+    return(message_new)
+
+def send_new(client, info, topic):
+    if topic == "Interaction/sensor/console2":
+        client.publish("Interaction/sensor/console2", info)
+        #Writes into csv file will complete on 12/28/2022
+
+    elif topic == "Interaction/Transdueser/console2":
+        client.publish("Interaction/Transdueser/console2", info)
+    
 
 broker_address="localhost"
 print("creating new instance")
@@ -40,6 +57,8 @@ client.on_message=on_message
 print("connecting to broker")
 client.connect(broker_address) #connect to broker
 client.loop_start()    #start the loop
+
+#Requires further definition needs to be discussed
 
 client.subscribe("data/file")
 client.publish("data/file", "Test.csv")
